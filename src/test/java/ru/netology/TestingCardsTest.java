@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestingCardsTest {
 
-     WebDriver driver;
+    WebDriver driver;
 
     @BeforeAll
     static void setUpAll() {
@@ -45,7 +45,7 @@ class TestingCardsTest {
         driver.findElement(By.cssSelector("[data-test-id = 'name'] input")).sendKeys("Шмидт Сергей");
         driver.findElement(By.cssSelector("[data-test-id = 'phone'] input")).sendKeys("+79991283444");
         driver.findElement(By.cssSelector("[data-test-id = 'agreement']")).click();
-        driver.findElement(By.cssSelector("button")).click();
+        driver.findElement(By.tagName("button")).click();
         String actualText = driver.findElement(By.cssSelector("[data-test-id = 'order-success']")).getText().trim();
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
         assertEquals(expected, actualText);
