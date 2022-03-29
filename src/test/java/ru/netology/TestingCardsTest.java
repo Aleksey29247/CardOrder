@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,21 +14,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestingCardsTest {
 
-    private WebDriver driver;
+     WebDriver driver;
 
     @BeforeAll
     static void setUpAll() {
-         WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
     void setupTest() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
-    }
+        driver = new ChromeDriver();
+
+        }
 
     @AfterEach
     void tearDown() {
@@ -39,12 +37,12 @@ class TestingCardsTest {
 
     @Test
     public void shouldSendForm() {
-        driver.get ("http://localhost:9999");
-        driver.findElement().sendKeys("Шмидт Сергей");
-        driver.findElement().sendKeys("+79991283444");
-        driver.findElement().click();
-        driver.findElement().click();
-        String actualText = driver.findElement().getText();
+        driver.get("http://localhost:9999");
+        driver.findElement(By.cssSelector("[data-test-id = 'name'] input")).sendKeys("Шмидт Сергей");
+        driver.findElement(By.cssSelector("[data-test-id = 'phone'] input")).sendKeys("+79991283444");
+        driver.findElement(By.cssSelector("[data-test-id = 'agreement']")).click();
+        driver.findElement(By.cssSelector("button")).click();
+        String actualText = driver.findElement(By.cssSelector("[data-test-id = 'order-success']")).getText().trim();
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
         assertEquals(expected, actualText);
 
