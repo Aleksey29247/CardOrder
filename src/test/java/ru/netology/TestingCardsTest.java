@@ -24,8 +24,12 @@ class TestingCardsTest {
     @BeforeEach
     void setupTest() {
         driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
 
-        }
+    }
 
     @AfterEach
     void tearDown() {
